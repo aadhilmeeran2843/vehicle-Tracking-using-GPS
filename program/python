@@ -1,0 +1,39 @@
+import folium
+import random
+import time
+
+# Create a map centered on a specific location
+m = folium.Map(location=[34.0522, -118.2437], zoom_start=12)
+
+# Sample vehicle data (latitude, longitude) for demonstration purposes
+vehicles = {
+    "vehicle1": {"latitude": 34.0522, "longitude": -118.2437},
+    "vehicle2": {"latitude": 34.0719, "longitude": -118.4059},
+    "vehicle3": {"latitude": 34.0522, "longitude": -118.2437},
+}
+
+# Simulate live updates for vehicle positions
+def update_vehicle_positions():
+    while True:
+        for vehicle, position in vehicles.items():
+            position["latitude"] += random.uniform(-0.01, 0.01)
+            position["longitude"] += random.uniform(-0.01, 0.01)
+            update_map_marker(vehicle, position["latitude"], position["longitude"])
+        time.sleep(5)  # Simulate updates every 5 seconds
+
+# Function to update the map marker for a vehicle
+def update_map_marker(vehicle, latitude, longitude):
+    if vehicle in map_markers:
+        map_markers[vehicle].location = [latitude, longitude]
+    else:
+        map_markers[vehicle] = folium.Marker([latitude, longitude], tooltip=vehicle).add_to(m)
+
+# Start the live tracking updates in a separate thread
+import threading
+map_markers = {}  # Dictionary to store map markers
+tracking_thread = threading.Thread(target=update_vehicle_positions)
+tracking_thread.daemon = True
+tracking_thread.start()
+
+# Display the map
+m.save('vehicle_tracking.html')
