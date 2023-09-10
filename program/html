@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Live Vehicle Tracking</title>
+</head>
+<body>
+    <header>
+        <h1>Live Vehicle Tracking</h1>
+    </header>
+    <div id="map-container">
+        <iframe src="vehicle_tracking.html" width="100%" height="600" frameborder="0"></iframe>
+    </div>
+</body>
+</html>
